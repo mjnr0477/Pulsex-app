@@ -2,15 +2,12 @@
   "expo": {
     "name": "pulsex-app",
     "slug": "pulsex-app",
+    "version": "1.0.0",
     "android": {
-      "package": "com.mjnr0477.pulsex_app",
-      "hermesEnabled": false
+      "hermesEnabled": false,
+      "package": "com.mjnr0477.pulsex_app"
     },
-    "extra": {
-      "eas": {
-        "projectId": "e9e47f2a-4d79-4709-86a8-2d1d78be1c89"
-      }
-    },
-    "owner": "mathew0707-2"
+    "platforms": ["android", "ios"],
+    "sdkVersion": "49.0.0"
   }
 }
