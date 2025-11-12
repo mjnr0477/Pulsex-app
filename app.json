@@ -1,29 +1,16 @@
 {
- "expo": {
+  "expo": {
     "name": "pulsex-app",
     "slug": "pulsex-app",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
+      "package": "com.mjnr0477.pulsex_app",
+      "hermesEnabled": false
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "extra": {
+      "eas": {
+        "projectId": "e9e47f2a-4d79-4709-86a8-2d1d78be1c89"
+      }
+    },
+    "owner": "mathew0707-2"
   }
 }
