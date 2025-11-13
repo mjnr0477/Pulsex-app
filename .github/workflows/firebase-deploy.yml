@@ -1,4 +1,4 @@
-name: Pulsex Firebase CI/CD
+name: Pulsex Auto Deploy
 
 on:
   push:
@@ -6,24 +6,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: npm ci
+
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
-      - name: Set Firebase credentials
+
+      - name: Authenticate Firebase
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/firebase-key.json
-          export GOOGLE_APPLICATION_CREDENTIALS=$HOME/firebase-key.json
-      - name: Set project
-        run: firebase use --add pulse-f5547
-      - name: Deploy
-        run: firebase deploy --only hosting --project 101762145555783754553
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > $HOME/firebase-key.json
+          firebase auth:login:ci || true
+          firebase use pulse-f5547 --project pulse-f5547 || true
+          firebase deploy --only hosting --project pulse-f5547 --token "$(firebase login:ci || echo '')"
