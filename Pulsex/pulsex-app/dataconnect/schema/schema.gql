@@ -1,0 +1,75 @@
+type User @table {
+  username: String!
+  email: String!
+  passwordHash: String!
+  createdAt: Timestamp!
+  displayName: String
+  profilePictureUrl: String
+  bio: String
+  lastOnlineAt: Timestamp
+}
+
+type Post @table {
+  type: String!
+  createdAt: Timestamp!
+  privacy: String!
+  caption: String
+  mediaUrl: String
+  thumbnailUrl: String
+  duration: Int64
+  location: String
+  author: User
+}
+
+type Conversation @table {
+  type: String!
+  createdAt: Timestamp!
+  name: String
+  lastMessageAt: Timestamp
+}
+
+type ConversationParticipant @table(key: ["conversation", "user"]) {
+  conversation: Conversation!
+  user: User!
+}
+
+type Message @table {
+  text: String!
+  createdAt: Timestamp!
+  isRead: Boolean
+  sender: User
+  conversation: Conversation
+}
+
+type ProductListing @table {
+  title: String!
+  description: String!
+  price: Float!
+  currency: String!
+  category: String!
+  createdAt: Timestamp!
+  status: String!
+  imageUrl: String
+  location: String
+  condition: String
+  seller: User
+}
+
+type Follow @table(key: ["follower", "followed"]) {
+  follower: User!
+  followed: User!
+  createdAt: Timestamp!
+}
+
+type Like @table(key: ["user", "post"]) {
+  user: User!
+  post: Post!
+  createdAt: Timestamp!
+}
+
+type Comment @table {
+  text: String!
+  createdAt: Timestamp!
+  author: User
+  post: Post
+}
