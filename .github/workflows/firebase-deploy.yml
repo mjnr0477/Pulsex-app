@@ -1,4 +1,5 @@
 name: Pulsex Firebase Deploy
+
 on:
   push:
     branches: [ main ]
@@ -7,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,14 +19,15 @@ jobs:
           node-version: 18
 
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+        run: npm install -g firebase-tools jq
 
-      - name: Write service account file
+      - name: Write Firebase key from secret
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $GITHUB_WORKSPACE/firebase-key.json
-          cat $GITHUB_WORKSPACE/firebase-key.json | jq .project_id || true
+          mkdir -p $HOME/.firebase
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $HOME/.firebase/firebase-key.json
+          jq .project_id $HOME/.firebase/firebase-key.json
 
-      - name: Deploy
+      - name: Deploy to Firebase Hosting
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/firebase-key.json
+          GOOGLE_APPLICATION_CREDENTIALS: $HOME/.firebase/firebase-key.json
         run: firebase deploy --only hosting --project pulse-f5547
