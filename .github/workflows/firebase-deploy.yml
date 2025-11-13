@@ -1,5 +1,4 @@
 name: Pulsex Firebase Deploy
-
 on:
   push:
     branches: [ main ]
@@ -20,9 +19,12 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-      - name: Deploy to Firebase Hosting
+      - name: Write service account file
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > $GITHUB_WORKSPACE/firebase-key.json
+          cat $GITHUB_WORKSPACE/firebase-key.json | jq .project_id || true
+
+      - name: Deploy
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/firebase-key.json
-        run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNTS }}' > $GOOGLE_APPLICATION_CREDENTIALS
-          firebase deploy --only hosting --project pulse-f5547
+        run: firebase deploy --only hosting --project pulse-f5547
