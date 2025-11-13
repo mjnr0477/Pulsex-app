@@ -1,0 +1,34 @@
+mutation AddNewUser($email: String!, $username: String!, $passwordHash: String!) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  user_insert(data: {email: $email, username: $username, passwordHash: $passwordHash, createdAt_expr: "request.time", id_expr: "uuidV4()"})
+}
+
+query GetUserByUsername($username: String!) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  users(where: {username: {eq: $username}}) {
+    id
+    username
+    email
+    bio
+    displayName
+    profilePictureUrl
+    lastOnlineAt
+    createdAt
+  }
+}
+
+mutation CreateNewPost($mediaUrl: String!, $type: String!, $privacy: String!, $caption: String!, $location: String, $thumbnailUrl: String, $duration: Int64) @auth(level: USER) {
+  post_insert(data: {mediaUrl: $mediaUrl, type: $type, privacy: $privacy, caption: $caption, location: $location, thumbnailUrl: $thumbnailUrl, duration: $duration, createdAt_expr: "request.time", authorId_expr: "auth.uid"})
+}
+
+query GetPostsByAuthor @auth(level: USER) {
+  posts(where: {authorId: {eq_expr: "auth.uid"}}) {
+    id
+    mediaUrl
+    type
+    privacy
+    caption
+    location
+    thumbnailUrl
+    duration
+    createdAt
+  }
+}

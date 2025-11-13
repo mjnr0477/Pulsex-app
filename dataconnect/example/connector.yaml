@@ -1,0 +1,20 @@
+connectorId: example
+generate:
+  javascriptSdk:
+    - outputDir: ../../src/dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ../..
+      react: true
+      angular: false
+    - outputDir: ../../Pulsex/pulsex-app/src/dataconnect-generated
+      package: "@dataconnect/generated"
+      packageJsonDir: ../../Pulsex/pulsex-app
+      react: true
+      angular: false
+  adminNodeSdk:
+    - outputDir: ../../Pulsex/pulsex-app/functions/src/dataconnect-admin-generated
+      package: "@dataconnect/admin-generated"
+      packageJsonDir: ../../Pulsex/pulsex-app/functions
+    - outputDir: ../../Pulsex/pulsex-app/~/projects/pulsex-app/src/dataconnect-admin-generated
+      package: "@dataconnect/admin-generated"
+      packageJsonDir: ../../Pulsex/pulsex-app/~/projects/pulsex-app

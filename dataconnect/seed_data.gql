@@ -1,0 +1,63 @@
+mutation CreateSeedData @auth(level: PUBLIC, insecureReason: "This operation is used to seed the database with example data and is safe to expose to the public.") @transaction {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      username: "demouser1",
+      email: "demouser1@example.com",
+      passwordHash: "passwordhash1",
+      createdAt: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      username: "demouser2",
+      email: "demouser2@example.com",
+      passwordHash: "passwordhash2",
+      createdAt: "2024-01-02T00:00:00Z"
+    }
+  ])
+  post_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440002",
+      authorId: "550e8400-e29b-41d4-a716-446655440000",
+      caption: "Example post from demouser1",
+      createdAt: "2024-01-03T00:00:00Z",
+      duration: 60,
+      privacy: "public",
+      type: "video",
+      mediaUrl: "http://example.com/media1.mp4"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440003",
+      authorId: "550e8400-e29b-41d4-a716-446655440001",
+      caption: "Example post from demouser2",
+      createdAt: "2024-01-04T00:00:00Z",
+      duration: 120,
+      privacy: "public",
+      type: "video",
+      mediaUrl: "http://example.com/media2.mp4"
+    }
+  ])
+  comment_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440004",
+      authorId: "550e8400-e29b-41d4-a716-446655440000",
+      postId: "550e8400-e29b-41d4-a716-446655440002",
+      text: "Example comment from demouser1 on their own post",
+      createdAt: "2024-01-05T00:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440005",
+      authorId: "550e8400-e29b-41d4-a716-446655440001",
+      postId: "550e8400-e29b-41d4-a716-446655440002",
+      text: "Example comment from demouser2 on demouser1's post",
+      createdAt: "2024-01-06T00:00:00Z"
+    }
+  ])
+  like_insertMany(data: [
+    {
+      postId: "550e8400-e29b-41d4-a716-446655440002",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      createdAt: "2024-01-07T00:00:00Z"
+    }
+  ])
+}
