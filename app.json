@@ -7,7 +7,13 @@
       "hermesEnabled": false,
       "package": "com.mjnr0477.pulsex_app"
     },
-    "platforms": ["android", "ios"],
-    "sdkVersion": "49.0.0"
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "sdkVersion": "49.0.0",
+    "ios": {
+      "bundleIdentifier": "com.mjnr0477.pulsex-app"
+    }
   }
 }
